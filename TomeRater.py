@@ -1,3 +1,4 @@
+#Add User Class
 class User(object):
     def __init__(self, name, email):
         self.uname = name
@@ -11,13 +12,13 @@ class User(object):
                 print("User '{u}' cannot be created. Invalid name. Please enter name as text".format(u=self.uname))
             if type(email) != str or email.count("@") != 1 or (email[-4:]!=".com" or email[-4:]!=".edu" or email[-4:]!=".org"):
                 print("User '{u}' cannot be created. Invalid email. Please enter email as text and ensure one '@' symbol is used with extension '.com', '.edu', or '.org'".format(u=self.uname))
-    
+
     def get_email(self):
         if hasattr(self, "email"):
             return self.email
         else:
             print("Cannot get email. No User attributes exist for user '{u}'. User was not propertly defined".format(u=self.uname))
-    
+
     def change_email(self, address):
         if hasattr(self, "email"):
             if type(address) == str and address.count("@") == 1:
@@ -27,7 +28,7 @@ class User(object):
                 print("Email not changed for user '{n}'. Please enter email as text and ensure one '@' symbol is used".format(u=self.name))
         else:
             print("Cannot change email. No User attributes exist for user '{u}'. User was not propertly defined".format(u=self.uname))
-    
+
     def __repr__(self):
         try:
             count = 0
@@ -36,10 +37,10 @@ class User(object):
             return "User {n}, email: {e}, books read: {c}".format(n=self.name, e=self.email, c=count)
         except AttributeError:
             return "No User attributes exist for user '{u}'. User was not propertly defined".format(u=self.uname)
-    
+
     def __eq__(self, other_user):
         return self.name == other_user.name and self.email == other_user.email
-    
+
     def read_book(self, book, rating):
         if hasattr(book, "isbn"):
             self.books[book] = rating
@@ -73,32 +74,32 @@ class Book(object):
             self.price = price
             self.ratings = []
             print("Book '{b}' has been created".format(b=self.title))
-        else:  
+        else:
             if type(title) != str:
                 print("Book '{t}' cannot be created. Invalid title. Please enter title as text".format(t=title))
-            if isbn.count("-") != 0 or (len(isbn) != 10 and len(isbn) != 13):  
+            if isbn.count("-") != 0 or (len(isbn) != 10 and len(isbn) != 13):
                 print("Book '{t}' cannot be created. Invalid isbn. Please enter the isbn as a 10 or 13 digit number without spaces or dashes".format(t=title))
             if type(price) != float:
                 print("Book '{t}' cannot be created. Invalid price. Please enter price with dollars and cents".format(t=title))
-        
+
     def get_title(self):
         if hasattr(self, "title"):
             return self.title
         else:
             print("A title attribute does not exist for book '{b}'. Book was not propertly defined".format(b=self.bname))
-    
+
     def get_isbn(self):
         if hasattr(self, "isbn"):
             return self.isbn
         else:
             print("An isbn attribute does not exist for book '{b}'. Book was not propertly defined".format(b=self.bname))
-            
+
     def get_price(self):
         if hasattr(self, "price"):
             return self.price
         else:
             print("A price attribute does not exist for book '{b}'. Book was not propertly defined".format(b=self.bname))
-    
+
     def set_isbn(self, nisbn):
         if hasattr(self, "isbn"):
             nisbn = str(nisbn)
@@ -108,8 +109,8 @@ class Book(object):
             else:
                 print("ISBN not changed. Please enter the isbn as a 10 or 13 digit number without spaces or dashes")
         else:
-            print("ISBN not changed. No Book attributes exist for book '{b}'. Book was not propertly defined".format(b=self.bname)) 
-    
+            print("ISBN not changed. No Book attributes exist for book '{b}'. Book was not propertly defined".format(b=self.bname))
+
     def set_price(self, nprice):
         if hasattr(self, "price"):
             if type(nprice) == float:
@@ -119,7 +120,7 @@ class Book(object):
                 print("Price not changed. Please enter the price with dollars and cents")
         else:
             print("No Book attributes exist for book '{b}'. Book was not propertly defined".format(b=self.bname))
-            
+
     def add_rating(self, rating):
         try:
             if rating != None:
@@ -130,7 +131,7 @@ class Book(object):
                     print("Invalid rating for book '{b}'. Please enter a rating from 0 to 4".format(b=self.title))
         except AttributeError:
             return "Rating not added for book '{b}'. No Book attributes exist. Book was not properly defined".format(b=self.bname)
-    
+
     def __eq__(self, other_book):
         return self.title == other_book.title and self.isbn == other_book.isbn
 
@@ -147,14 +148,14 @@ class Book(object):
                 print("Cannot get avg rating for book '{b}'. Book has not been rated".format(b=self.title))
         else:
             print("Cannot get avg rating. No Book attributes exist for user '{b}'. Book was not propertly defined".format(b=self.bname))
-            
-    
+
+
     def __repr__(self):
         try:
             return "'{t}'".format(t=self.title)
         except AttributeError:
             return "No Book attributes exist for book '{b}'. Book was not propertly defined".format(b=self.bname)
-    
+
     def __hash__(self):
         return hash((self.title, self.isbn))
 
@@ -164,19 +165,19 @@ class Fiction(Book):
         super().__init__(title, isbn, price)
         if hasattr(self, "isbn"):
             self.author = author
-        
+
     def get_author(self):
         if hasattr(self, "isbn"):
             return self.author
         else:
             print("An author attribute does not exist for book '{b}'. Book was not properly defined".format(b=self.bname))
-    
+
     def __repr__(self):
         try:
             return "'{t}' by {a}".format(t=self.title, a=self.author)
         except AttributeError:
             return "No Book attributes exist for book '{b}'. Book was not properly defined".format(b=self.bname)
-        
+
 
 
 class Non_Fiction(Book):
@@ -185,19 +186,19 @@ class Non_Fiction(Book):
         if hasattr(self, "isbn"):
             self.subject = subject
             self.level = level
-        
+
     def get_subject(self):
         if hasattr(self, "isbn"):
             return self.subject
         else:
             print("A subject attribute does not exist for book '{b}'. Book was not properly defined".format(b=self.bname))
-    
+
     def get_level(self):
         if hasattr(self, "isbn"):
             return self.level
         else:
             print("A level attribute does not exist for book '{b}'. Book was not properly defined".format(b=self.bname))
-    
+
     def __repr__(self):
         try:
             return "'{t}' a/an {l} manual on {s}".format(t=self.title, l=self.level, s=self.subject)
@@ -209,16 +210,16 @@ class TomeRater(object):
     def __init__(self):
         self.users = {}
         self.books = {}
-    
+
     def create_book(self, title, isbn, price):
         return Book(title, isbn, price)
-    
+
     def create_novel(self, title, author, isbn, price):
         return Fiction(title, author, isbn, price)
 
     def create_non_fiction(self, title, subject, level, isbn, price):
         return Non_Fiction(title, subject, level, isbn, price)
-    
+
     def add_book_to_user(self, book, email, rating=None):
         if hasattr(book, "isbn"):
             if email in self.users:
@@ -232,7 +233,7 @@ class TomeRater(object):
                 print("No user with email {e}".format(e=email))
         else:
             print("Book '{b}' not added to {e}. Book argument entered is not a valid book object. Please create a book/novel/non-fiction object".format(b=book.bname, e=email))
-            
+
     def add_user(self, name, email, user_books=None):
         self.users[email] = User(name, email)
         if user_books != None:
@@ -247,15 +248,15 @@ class TomeRater(object):
                         self.add_book_to_user(book, email)
             else:
                 print("User books not added. user_books attribute must be a list")
-    
+
     def print_catalog(self):
         for book in self.books:
             print(book)
-            
+
     def print_users(self):
         for user in self.users:
             print(self.users[user])
-                    
+
     def most_read_book(self):
         count = 0
         most_read_val = 0
@@ -275,7 +276,7 @@ class TomeRater(object):
             print("The most read book is {b}, read {n} times".format(b=most_read_book[0], n=most_read_val))
         else: print("No books have been read")
         #return most_read_book
-     
+
     def highest_rated_book(self):
         count = 0
         high_rating_val = 0
@@ -298,7 +299,7 @@ class TomeRater(object):
             print("The highest rated book is {b}, with an average rating of {r}".format(b=high_rating_book[0], r=high_rating_val))
         else: print("No books have been read")
         #return high_rating_book
-    
+
     def most_positive_user(self):
         count = 0
         most_positive_val = 0
@@ -321,7 +322,7 @@ class TomeRater(object):
             print("The most positive user is '{u}', with an average book rating of {r}".format(u=most_positive_users[0], r=most_positive_val))
         else: print("No users have rated books")
         #return most_positive_users
-    
+
     def get_n_most_expensive_books(self, n):
         book_prices = {}
         count = 0
@@ -336,4 +337,3 @@ class TomeRater(object):
                 print(sbooks[i])
         else:
             print("Requested number of books is too high. Only {c} books exist".format(c=count))
-
